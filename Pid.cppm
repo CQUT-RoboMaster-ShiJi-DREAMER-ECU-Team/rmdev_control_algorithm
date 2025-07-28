@@ -11,13 +11,15 @@ module;
 #include <cstdint>
 #include <cmath>
 
-#include "rmdev/concepts.hpp"
+#include "emdevif/concepts.hpp"
 
 export module rmdev.control_algorithm.Pid;
 
 import rmdev.util.math;
 
 export namespace rmdev {
+
+using emdevif::ArithmeticType;
 
 /**
  * Pid 增益
