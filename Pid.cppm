@@ -13,7 +13,7 @@ module;
 
 #include "emdevif/concepts.hpp"
 
-export module rmdev.control_algorithm.Pid;
+export module rmdev.controlAlgorithm.pid;
 
 import rmdev.util.math;
 
