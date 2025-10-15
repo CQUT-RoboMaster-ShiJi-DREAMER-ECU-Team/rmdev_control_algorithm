@@ -36,7 +36,7 @@ enum PidImprove : std::uint8_t {
  * PID 控制类
  * @tparam Type 数据类型
  */
-template<ArithmeticType Type>
+template<ArithmeticType Type = float>
 class Pid
 {
 public:
@@ -60,7 +60,7 @@ public:
      * @param scalar_a 变速积分参数 a（默认为零）
      * @param scalar_b 变速积分参数 b（默认为零）
      */
-    constexpr Pid(Kpid kpid,
+    constexpr Pid(const Kpid& kpid,
                   ScaleType output_limit,
                   ScaleType integral_limit,
                   const PidImprove improve = PID_NONE,
@@ -84,7 +84,7 @@ public:
      * @param delta_time 间隔时间（默认为 1）
      * @return 计算结果
      */
-    [[nodiscard]] ScaleType calc(ScaleType target, ScaleType measure, ScaleType delta_time = 1);
+    ScaleType calc(ScaleType target, ScaleType measure, ScaleType delta_time = 1);
 
     /**
      * PID 计算
@@ -93,7 +93,7 @@ public:
      * @param delta_time 间隔时间（默认为 1）
      * @return 计算结果
      */
-    [[nodiscard]] ScaleType operator()(ScaleType target, ScaleType measure, ScaleType delta_time = 1)
+    ScaleType operator()(ScaleType target, ScaleType measure, ScaleType delta_time = 1)
     {
         return calc(target, measure, delta_time);
     }
