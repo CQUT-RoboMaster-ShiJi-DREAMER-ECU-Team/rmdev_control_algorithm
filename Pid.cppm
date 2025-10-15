@@ -15,7 +15,7 @@ module;
 
 export module rmdev.controlAlgorithm.pid;
 
-import rmdev.util.math;
+import rmdev.math;
 
 export namespace rmdev {
 
