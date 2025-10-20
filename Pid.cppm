@@ -1,6 +1,5 @@
 /**
  * @file Pid.cppm
- * @module rmdev.control_algorithm.Pid
  * @author 杜以成
  * @date 2025-06-15
  * @brief PID
