@@ -10,15 +10,12 @@ module;
 #include <cstdint>
 #include <cmath>
 
-#include "emdevif/concepts.hpp"
-
 export module rmdev.controlAlgorithm.pid;
 
 import rmdev.math;
+import emdevif.concepts;
 
 export namespace rmdev {
-
-using emdevif::ArithmeticType;
 
 /**
  * Pid 增益
@@ -35,7 +32,7 @@ enum PidImprove : std::uint8_t {
  * PID 控制类
  * @tparam Type 数据类型
  */
-template<ArithmeticType Type = float>
+template<emdevif::ArithmeticType Type = float>
 class Pid
 {
 public:
@@ -258,7 +255,7 @@ private:
     ScaleType ScalarB{};  // iterm = err*((A-abs(err)+B)/A)  when B<|err|<A+B
 };
 
-template<ArithmeticType Type>
+template<emdevif::ArithmeticType Type>
 typename Pid<Type>::ScaleType Pid<Type>::calc(ScaleType target, ScaleType measure, ScaleType delta_time)
 {
     measure_ = measure;
