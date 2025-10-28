@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 
 project(rmdev_control_algorithm CXX)
 
-add_library(${PROJECT_NAME} OBJECT)
+add_library(${PROJECT_NAME} STATIC)
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC emdevif_core rmdev_math
