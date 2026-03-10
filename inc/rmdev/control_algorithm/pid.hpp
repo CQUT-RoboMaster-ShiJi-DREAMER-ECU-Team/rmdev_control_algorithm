@@ -1,19 +1,24 @@
 /**
- * @file Pid.cppm
- * @brief PID
+ * @file pid.hpp
+ * @brief
  */
 
-module;
+#pragma once
+#ifndef RMDEV_CONTROL_ALGORITHM_PID_HPP
+    #define RMDEV_CONTROL_ALGORITHM_PID_HPP
 
-#include <cstdint>
-#include <cmath>
+    #include "emdevif/core/detail/config.hpp"
 
-export module rmdev.controlAlgorithm.pid;
+    #ifndef EMDEVIF_MODULE_INTERFACE_UNIT
+        #include <cstdint>
+        #include <cmath>
 
-import rmdev.math;
-import emdevif.concepts;
+        #include "rmdev/math.hpp"
+        #include "emdevif/core/concepts.hpp"
+    #endif
 
-export namespace rmdev {
+EMDEVIF_MODULE_EXPORT
+namespace rmdev {
 
 /**
  * Pid 增益
@@ -78,7 +83,7 @@ public:
      * @param delta_time 间隔时间（默认为 1）
      * @return 计算结果
      */
-    ScaleType calc(ScaleType target, ScaleType measure, ScaleType delta_time = 1);
+    ScaleType calc(ScaleType target, ScaleType measure, ScaleType delta_time = 1) noexcept;
 
     /**
      * PID 计算
@@ -87,7 +92,7 @@ public:
      * @param delta_time 间隔时间（默认为 1）
      * @return 计算结果
      */
-    ScaleType operator()(ScaleType target, ScaleType measure, ScaleType delta_time = 1)
+    ScaleType operator()(ScaleType target, ScaleType measure, ScaleType delta_time = 1) noexcept
     {
         return calc(target, measure, delta_time);
     }
@@ -96,7 +101,7 @@ public:
      * 获得计算结果输出值
      * @return 计算结果输出值
      */
-    [[nodiscard]] ScaleType getOutput() const
+    [[nodiscard]] ScaleType getOutput() const noexcept
     {
         return output;
     }
@@ -105,34 +110,34 @@ public:
      * 获得计算结果输出值
      * @return 计算结果输出值
      */
-    [[nodiscard]] ScaleType operator()() const
+    [[nodiscard]] ScaleType operator()() const noexcept
     {
         return getOutput();
     }
 
-    void setKp(ScaleType kp)
+    void setKp(ScaleType kp) noexcept
     {
         kpid_.kp = kp;
     }
-    [[nodiscard]] ScaleType getKp() const
+    [[nodiscard]] ScaleType getKp() const noexcept
     {
         return kpid_.kp;
     }
 
-    void setKi(ScaleType ki)
+    void setKi(ScaleType ki) noexcept
     {
         kpid_.ki = ki;
     }
-    [[nodiscard]] ScaleType getKi() const
+    [[nodiscard]] ScaleType getKi() const noexcept
     {
         return kpid_.ki;
     }
 
-    void setKd(ScaleType kd)
+    void setKd(ScaleType kd) noexcept
     {
         kpid_.kd = kd;
     }
-    [[nodiscard]] ScaleType getKd() const
+    [[nodiscard]] ScaleType getKd() const noexcept
     {
         return kpid_.kd;
     }
@@ -142,7 +147,7 @@ private:
      * 梯形积分
      * @param dt 时间间隔
      */
-    void f_Trapezoid_Integral(const ScaleType dt)
+    void f_Trapezoid_Integral(const ScaleType dt) noexcept
     {
         iterm = kpid_.ki * ((err + last_err) * dt / ScaleType(2));
     }
@@ -150,7 +155,7 @@ private:
     /**
      * 变速积分
      */
-    void f_Changing_Integral_Rate()
+    void f_Changing_Integral_Rate() noexcept
     {
         if (err * iout > 0) {
             // Integral still increasing
@@ -170,7 +175,7 @@ private:
     /**
      * 积分限幅
      */
-    void f_Integral_Limit()
+    void f_Integral_Limit() noexcept
     {
         ScaleType temp_Output, temp_Iout;
         temp_Iout = iout + iterm;
@@ -196,7 +201,7 @@ private:
      * “微分先行”
      * @param dt 时间间隔
      */
-    void f_Derivative_On_Measurement(const ScaleType dt)
+    void f_Derivative_On_Measurement(const ScaleType dt) noexcept
     {
         dout = kpid_.kd * (last_measure - measure_) / dt;
     }
@@ -204,7 +209,7 @@ private:
     /**
      * 输出限幅
      */
-    void f_Output_Limit()
+    void f_Output_Limit() noexcept
     {
         limitInRange(output, output_limit_);
     }
@@ -212,7 +217,7 @@ private:
     /**
      * 比例限幅
      */
-    void f_Proportion_Limit()
+    void f_Proportion_Limit() noexcept
     {
         // Proportion limit is insignificant in control process,
         // but it makes variable chart look better
@@ -254,7 +259,7 @@ private:
 };
 
 template<emdevif::ArithmeticType Type>
-typename Pid<Type>::ScaleType Pid<Type>::calc(ScaleType target, ScaleType measure, ScaleType delta_time)
+inline typename Pid<Type>::ScaleType Pid<Type>::calc(ScaleType target, ScaleType measure, ScaleType delta_time) noexcept
 {
     measure_ = measure;
     target_ = target;
@@ -313,3 +318,5 @@ typename Pid<Type>::ScaleType Pid<Type>::calc(ScaleType target, ScaleType measur
 }
 
 }  // namespace rmdev
+
+#endif  // !RMDEV_CONTROL_ALGORITHM_PID_HPP
