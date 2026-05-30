@@ -41,6 +41,7 @@ class Pid
 public:
     using ScaleType = Type;
 
+    /// @brief PID 增益参数结构体
     struct Kpid {
         ScaleType kp;
         ScaleType ki;
@@ -115,28 +116,52 @@ public:
         return getOutput();
     }
 
+    /**
+     * @brief 设置比例增益
+     * @param kp 比例增益值
+     */
     void setKp(ScaleType kp) noexcept
     {
         kpid_.kp = kp;
     }
+    /**
+     * @brief 获取比例增益
+     * @return 比例增益值
+     */
     [[nodiscard]] ScaleType getKp() const noexcept
     {
         return kpid_.kp;
     }
 
+    /**
+     * @brief 设置积分增益
+     * @param ki 积分增益值
+     */
     void setKi(ScaleType ki) noexcept
     {
         kpid_.ki = ki;
     }
+    /**
+     * @brief 获取积分增益
+     * @return 积分增益值
+     */
     [[nodiscard]] ScaleType getKi() const noexcept
     {
         return kpid_.ki;
     }
 
+    /**
+     * @brief 设置微分增益
+     * @param kd 微分增益值
+     */
     void setKd(ScaleType kd) noexcept
     {
         kpid_.kd = kd;
     }
+    /**
+     * @brief 获取微分增益
+     * @return 微分增益值
+     */
     [[nodiscard]] ScaleType getKd() const noexcept
     {
         return kpid_.kd;
@@ -230,31 +255,31 @@ private:
     }
 
 private:
-    PidImprove improve_{};
+    PidImprove improve_{};        ///< PID 增益标志位
 
-    Kpid kpid_{};
+    Kpid kpid_{};                 ///< PID 增益参数
 
-    ScaleType output_limit_{};
-    ScaleType integral_limit_{};
+    ScaleType output_limit_{};    ///< 输出限幅值
+    ScaleType integral_limit_{};  ///< 积分限幅值
 
-    ScaleType deadband_{};     ///< 死区值
+    ScaleType deadband_{};        ///< 死区值
 
-    ScaleType target_{};       ///< 目标值
+    ScaleType target_{};          ///< 目标值
 
-    ScaleType measure_{};      ///< 测量值
-    ScaleType last_measure{};  ///< 上一次的测量值
+    ScaleType measure_{};         ///< 测量值
+    ScaleType last_measure{};     ///< 上一次的测量值
 
-    ScaleType err{};           ///< 误差值
-    ScaleType last_err{};      ///< 上一次的误差
+    ScaleType err{};              ///< 误差值
+    ScaleType last_err{};         ///< 上一次的误差
 
-    ScaleType pout{};
-    ScaleType iout{};
-    ScaleType dout{};
-    ScaleType iterm{};
+    ScaleType pout{};             ///< 比例项输出
+    ScaleType iout{};             ///< 积分项累计输出
+    ScaleType dout{};             ///< 微分项输出
+    ScaleType iterm{};            ///< 积分项增量
 
-    ScaleType output{};   ///< 输出值
+    ScaleType output{};           ///< 输出值
 
-    ScaleType ScalarA{};  // For Changing Integral
+    ScaleType ScalarA{};
     ScaleType ScalarB{};  // iterm = err*((A-abs(err)+B)/A)  when B<|err|<A+B
 };
 
