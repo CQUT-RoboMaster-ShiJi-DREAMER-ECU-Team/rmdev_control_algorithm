@@ -7,17 +7,13 @@
 #ifndef RMDEV_CONTROL_ALGORITHM_PID_HPP
     #define RMDEV_CONTROL_ALGORITHM_PID_HPP
 
-    #include "emdevif/core/detail/config.hpp"
 
-    #ifndef EMDEVIF_MODULE_INTERFACE_UNIT
+
         #include <cstdint>
         #include <cmath>
 
         #include "rmdev/math.hpp"
         #include "emdevif/core/concepts.hpp"
-    #endif
-
-EMDEVIF_MODULE_EXPORT
 namespace rmdev {
 
 /**
