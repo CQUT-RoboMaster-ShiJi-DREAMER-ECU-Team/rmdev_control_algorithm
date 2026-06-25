@@ -9,11 +9,12 @@
 
 
 
-        #include <cstdint>
         #include <cmath>
+        #include <cstdint>
 
-        #include "rmdev/math.hpp"
         #include "emdevif/core/concepts.hpp"
+        #include "rmdev/math.hpp"
+
 namespace rmdev {
 
 /**
