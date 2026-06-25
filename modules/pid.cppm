@@ -10,6 +10,6 @@ module;
 export module rmdev.control_algorithm.pid;
 
 export namespace rmdev {
-    using ::rmdev::PidImprove;
-    using ::rmdev::Pid;
-}
+using ::rmdev::Pid;
+using ::rmdev::PidImprove;
+}  // namespace rmdev

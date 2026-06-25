@@ -5,15 +5,13 @@
 
 #pragma once
 #ifndef RMDEV_CONTROL_ALGORITHM_PID_HPP
-    #define RMDEV_CONTROL_ALGORITHM_PID_HPP
+#define RMDEV_CONTROL_ALGORITHM_PID_HPP
 
+#include <cmath>
+#include <cstdint>
 
-
-        #include <cmath>
-        #include <cstdint>
-
-        #include "emdevif/core/concepts.hpp"
-        #include "rmdev/math.hpp"
+#include "emdevif/core/concepts.hpp"
+#include "rmdev/math.hpp"
 
 namespace rmdev {
 
